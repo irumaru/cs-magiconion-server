@@ -7,4 +7,9 @@
     <RootNamespace>cs_magiconion_server</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Grpc.AspNetCore" Version="2.65.0" />
+    <PackageReference Include="MagicOnion.Server" Version="6.1.4" />
+  </ItemGroup>
+
 </Project>
