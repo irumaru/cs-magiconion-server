@@ -8,6 +8,7 @@ using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using UserContenter;
 
 public class Program
 {
@@ -59,6 +60,8 @@ public class Program
         });
 
         builder.Services.AddGrpc();       // Add this line(Grpc.AspNetCore)
+        builder.Services.AddHttpContextAccessor(); // Add this line(Microsoft.AspNetCore.Http)
+        builder.Services.AddScoped<IUserContent, UserContent>(); // Add this line(UserContenter)
         builder.Services.AddMagicOnion(); // Add this line(MagicOnion.Server)
 
         // 認証を追加
