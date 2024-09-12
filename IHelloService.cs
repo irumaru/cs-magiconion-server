@@ -22,12 +22,12 @@ public class HelloService : ServiceBase<IHelloService>, IHelloService
   public async UnaryResult<string> SayAsync(string mes)
   {
     // var user = Context.CallContext.GetHttpContext().User.Identity.Name;
-    string user = _userContent.user;
-
+    
     string reMes = $"Hello {mes}";
 
     Console.WriteLine(reMes);
-    Console.WriteLine($"User: {user}");
+    Console.WriteLine($"uid: {_userContent.uid}");
+    Console.WriteLine($"did: {_userContent.did}");
 
     return reMes;
   }

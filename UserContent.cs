@@ -7,19 +7,23 @@ namespace UserContenter;
 
 public interface IUserContent
 {
-  string user { get; }
+  string uid { get; }
+  string did { get; }
 }
 
 public class UserContent : IUserContent
 {
   private readonly IHttpContextAccessor _httpContextAccessor;
 
-  public string user { get; }
+  public string uid { get; }
+  public string did { get; }
 
   public UserContent(IHttpContextAccessor httpContextAccessor)
   {
     _httpContextAccessor = httpContextAccessor;
 
-    user = _httpContextAccessor.HttpContext.User.Identity.Name;
+    var hUser = _httpContextAccessor.HttpContext.User;
+    uid = hUser.FindFirst("uid")?.Value;
+    did = hUser.FindFirst("did")?.Value;
   }
 }

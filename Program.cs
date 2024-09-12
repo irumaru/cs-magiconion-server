@@ -30,14 +30,18 @@ public class Program
         }
 
         // トークンのクレームを作成
-        var claims = new[] { new Claim(ClaimTypes.Name, name) };
+        var claims = new[]
+        {
+            new Claim("uid", name),
+            new Claim("did", "yu"),
+        };
 
         // 共有鍵の署名を作成
         var credentials = new SigningCredentials(SecurityKey, SecurityAlgorithms.HmacSha256);
         // トークンを作成
         var token = new JwtSecurityToken(
-            issuer: "ExampleServer",
-            audience: "ExampleClients",
+            issuer: "https://auth.test.mikunition.com",
+            //audience: "ExampleClients",
             claims: claims,
             expires: DateTime.Now.AddSeconds(300),
             signingCredentials: credentials
@@ -56,7 +60,7 @@ public class Program
         // Kestrel サーバーの設定を追加して、h2c を有効にする
         builder.WebHost.ConfigureKestrel(options =>
         {
-            options.ListenLocalhost(5000, o => o.Protocols = HttpProtocols.Http2);
+            options.ListenLocalhost(5001, o => o.Protocols = HttpProtocols.Http2);
         });
 
         builder.Services.AddGrpc();       // Add this line(Grpc.AspNetCore)
