@@ -18,7 +18,7 @@ public class Program
     public static JwtSecurityTokenHandler JwtTokenHandler = new JwtSecurityTokenHandler();
     // 共通鍵なのでSymmetricSecurityKeyクラスを用意
     // 引数: 鍵のバイト配列
-    public static SymmetricSecurityKey SecurityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("83b9add66092fdf9c36620764c63839e"));
+    public static SymmetricSecurityKey SecurityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(ConfigSingleton.GetInstance().configuration["JwtSettings:Secret"]));
 
     // トークンを生成
     public static string GenerateJwtToken(string name)
@@ -40,7 +40,7 @@ public class Program
         var credentials = new SigningCredentials(SecurityKey, SecurityAlgorithms.HmacSha256);
         // トークンを作成
         var token = new JwtSecurityToken(
-            issuer: "https://auth.test.mikunition.com",
+            issuer: ConfigSingleton.GetInstance().configuration["JwtSettings:Issuer"],
             //audience: "ExampleClients",
             claims: claims,
             expires: DateTime.Now.AddSeconds(300),

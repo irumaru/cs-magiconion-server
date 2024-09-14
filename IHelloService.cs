@@ -38,6 +38,8 @@ public class HelloService : ServiceBase<IHelloService>, IHelloService
     counter.Increment();
     Console.WriteLine($"counter: {counter.GetCount()}");
 
+    Console.WriteLine($"AppMessage: {ConfigSingleton.GetInstance().configuration["AppMessage"]}");
+
     return reMes;
   }
 }
